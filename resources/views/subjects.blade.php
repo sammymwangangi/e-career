@@ -8,11 +8,11 @@
                 <div class="card-header border-0 bg-info">{{ __('Please select your three(3) favourite science subjects') }}</div>
 
                 <div class="card-body">
-                    <form>
+                    <form method="POST" action="{{ route('subjects.store') }}">
                         @csrf
                       <div class="form-group">
                         <label for="formGroupExampleInput">Favourite Subject One</label>
-                        <select class="form-control" name="gender"  required data-validation-required-message= "gender is required">
+                        <select class="form-control" name="sub1"  required data-validation-required-message= "subject 1 is required">
                             <option value="Physics">Physics</option>
                             <option value="Biology">Biology</option>
                             <option value="Chemistry">Chemistry</option>
@@ -23,7 +23,7 @@
                       </div>
                       <div class="form-group">
                         <label for="formGroupExampleInput">Favourite Subject Two</label>
-                        <select class="form-control" name="gender"  required data-validation-required-message= "gender is required">
+                        <select class="form-control" name="sub2"  required data-validation-required-message= "subject 2 is required">
                             <option value="Physics">Physics</option>
                             <option value="Biology">Biology</option>
                             <option value="Chemistry">Chemistry</option>
@@ -34,7 +34,7 @@
                       </div>
                       <div class="form-group">
                         <label for="formGroupExampleInput2">Favourite Subject Three</label>
-                        <select class="form-control" name="gender"  required data-validation-required-message= "gender is required">
+                        <select class="form-control" name="sub3"  required data-validation-required-message= "subject 3 is required">
                             <option value="Physics">Physics</option>
                             <option value="Biology">Biology</option>
                             <option value="Chemistry">Chemistry</option>

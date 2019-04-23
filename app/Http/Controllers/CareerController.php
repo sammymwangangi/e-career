@@ -2,10 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Career;
 use Illuminate\Http\Request;
 
-class RecommendationsController extends Controller
+class CareerController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -40,10 +51,10 @@ class RecommendationsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Career  $career
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Career $career)
     {
         //
     }
@@ -51,10 +62,10 @@ class RecommendationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Career  $career
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Career $career)
     {
         //
     }
@@ -63,10 +74,10 @@ class RecommendationsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Career  $career
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Career $career)
     {
         //
     }
@@ -74,10 +85,10 @@ class RecommendationsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Career  $career
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Career $career)
     {
         //
     }

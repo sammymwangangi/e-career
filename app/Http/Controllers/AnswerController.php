@@ -3,9 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Answer;
+use App\Test;
 
-class UniversitiesController extends Controller
+class AnswerController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +46,20 @@ class UniversitiesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $answer=Answer::create([
+                'tes_id' => $request->input('test_id'),
+                'question' => $request->input('question'),
+                'given_answer' => $request->input('answer'),
+                'true_answer' => $request->input('true_answer'),
+            ]);
+            if ($request->input('answer')==$request->input('true_answer')) {
+                $insert=Test::where('id',$request->input('test_id'))->increment('score');
+            }
+            return response($answer);
+        }else{
+            return "ajax not done";
+        }
     }
 
     /**

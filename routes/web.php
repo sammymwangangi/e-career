@@ -14,9 +14,6 @@
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/subjects', function () {
-    return view('subjects');
-});
 
 Auth::routes([
   'register' => false,
@@ -31,3 +28,10 @@ Route::get('profile', function () {
 })->middleware('verified');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('subjects', 'SubjectsController');
+Route::resource('quizzes', 'QuizController');
+Route::resource('questions', 'QuestionController');
+Route::resource('answer', 'AnswerController');
+Route::resource('result', 'ResultController');
+Route::resource('test', 'TestController');

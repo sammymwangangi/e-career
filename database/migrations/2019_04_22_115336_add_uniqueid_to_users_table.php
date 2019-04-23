@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDescriptionToCoursesTable extends Migration
+class AddUniqueidToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddDescriptionToCoursesTable extends Migration
      */
     public function up()
     {
-        Schema::table('courses', function (Blueprint $table) {
-            $table->string('description')->after('name');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('uniqueid')->nullable()->after('email');
         });
     }
 
@@ -25,8 +25,8 @@ class AddDescriptionToCoursesTable extends Migration
      */
     public function down()
     {
-        Schema::table('courses', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
+            // 
         });
     }
 }

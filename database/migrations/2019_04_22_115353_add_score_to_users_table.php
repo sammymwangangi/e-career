@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCareerInterestQuestionsTable extends Migration
+class AddScoreToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateCareerInterestQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('career_interest_questions', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('score')->nullable()->after('uniqueid');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateCareerInterestQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('career_interest_questions');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }

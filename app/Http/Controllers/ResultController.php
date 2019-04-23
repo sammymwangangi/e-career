@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Subject;
-use Auth;
+use App\User;
+use App\Answer;
+use App\Quiz;
 
-class SubjectsController extends Controller
+class ResultController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -17,7 +18,7 @@ class SubjectsController extends Controller
     {
         $this->middleware('auth');
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +26,7 @@ class SubjectsController extends Controller
      */
     public function index()
     {
-        return view('subjects');
+        return view('result.index');
     }
 
     /**
@@ -35,7 +36,19 @@ class SubjectsController extends Controller
      */
     public function create()
     {
-        //
+        $getId=$var->input('user_id');
+        $getExamCode=$var->input('exam_code');
+
+        $getScore=User::where(
+            ['user_id'=>$getId,
+             'uniqueid'=>$getExamCode
+        ])->value('score');
+        $findUserIdForAnswerSheet=User::where(
+            ['user_id'=>$getId,
+             'uniqueid'=>$getExamCode
+        ])->value('id');
+        $answeredQuestion=Answer::where('user_id',$findUserIdForAnswerSheet)->get();
+        return view('result.showall')->with('answeredQuestion',$answeredQuestion)->with('getScore',$getScore)->with('userId',$getId);
     }
 
     /**
@@ -46,15 +59,7 @@ class SubjectsController extends Controller
      */
     public function store(Request $request)
     {
-        $subject = Subject::create([
-            'sub1' => $request->input('sub1'),
-            'sub2' => $request->input('sub2'),
-            'sub3' => $request->input('sub3'),
-            'user_id' => Auth::user()->id,
-        ]);
-        $subject->save();
-
-        return redirect('quizzes')->with('success', 'subject created!');
+        //
     }
 
     /**

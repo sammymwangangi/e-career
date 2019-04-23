@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Quiz;
+use App\Question;
 use Illuminate\Http\Request;
-use App\Subject;
-use Auth;
 
-class SubjectsController extends Controller
+class QuizController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -17,7 +17,7 @@ class SubjectsController extends Controller
     {
         $this->middleware('auth');
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +25,8 @@ class SubjectsController extends Controller
      */
     public function index()
     {
-        return view('subjects');
+        $quizzes = Quiz::all();
+        return view('quizzes.index', compact('quizzes'));
     }
 
     /**
@@ -35,7 +36,7 @@ class SubjectsController extends Controller
      */
     public function create()
     {
-        //
+        return view('quizzes.create');
     }
 
     /**
@@ -46,35 +47,39 @@ class SubjectsController extends Controller
      */
     public function store(Request $request)
     {
-        $subject = Subject::create([
-            'sub1' => $request->input('sub1'),
-            'sub2' => $request->input('sub2'),
-            'sub3' => $request->input('sub3'),
-            'user_id' => Auth::user()->id,
+        $quiz= new Quiz;
+        $quiz = Quiz::create([
+            'title' => $request->input('title'),
+            'question_length' => $request->input('question_length'),
+            'uniqueid' => $request->input('uniqueid'),
+            'time' => $request->input('time')
         ]);
-        $subject->save();
 
-        return redirect('quizzes')->with('success', 'subject created!');
+        return view('questions.create', ['quiz' => $quiz]);
+
+        // return redirect('quizzes')->with('success', 'Quiz Created Successfully!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Quiz  $quiz
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $quiz = Quiz::findOrfail($id);
+        $questions = Question::all();
+        return view('quizzes.show', compact('questions', 'quiz'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Quiz $quiz)
     {
         //
     }
@@ -83,10 +88,10 @@ class SubjectsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Quiz $quiz)
     {
         //
     }
@@ -94,10 +99,10 @@ class SubjectsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Quiz $quiz)
     {
         //
     }
